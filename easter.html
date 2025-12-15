@@ -65,28 +65,29 @@
       border: 1px solid var(--line);
       border-radius: 22px;
       box-shadow: 0 30px 120px rgba(0,0,0,.7);
-      display:grid;
-      place-items:center;
-      overflow:hidden;
-      position:relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      position: relative;
     }
 
     /* wrapper para que el scale no haga cosas raras */
     .art{
-      display:grid;
-      place-items:center;
-      transform: scale(0.5);   /* mitad */
-      transform-origin: center;
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
     }
 
     .art img{
-      width: 520px;           /* tamaño base antes del scale */
+      width: min(360px, 60vw);   /* tamaño en desktop */
       height: auto;
-      display:block;
+      display: block;
+      opacity: 0.1;              /* 10% */
       image-rendering: pixelated;
       image-rendering: crisp-edges;
-      user-select:none;
-      -webkit-user-drag:none;
+      user-select: none;
+      -webkit-user-drag: none;
     }
 
     .back-btn{
@@ -140,7 +141,25 @@
         50%{ opacity: 0.02; }
     }
 
+    @media (max-width: 520px){
+      body{ padding: 14px; }
 
+      .box{
+        width: 94vw;
+        height: 78vh;            /* más alto en celular */
+        border-radius: 18px;
+      }
+
+      .art img{
+        width: min(240px, 72vw); /* se adapta mejor */
+      }
+
+      .back-btn{
+        bottom: calc(12px + env(safe-area-inset-bottom));
+        right:  calc(12px + env(safe-area-inset-right));
+        left:   auto;
+      }
+    }
   </style>
 </head>
 
