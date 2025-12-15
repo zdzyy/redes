@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diego Mendoza — Links</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Newsreader:opsz,wght@6..72,700;6..72,900&family=Recursive:wght@700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Background -->
+  <div class="bg" aria-hidden="true">
+    <div class="noise"></div>
+    <div class="vignette"></div>
+    <div class="glow g1"></div>
+    <div class="glow g2"></div>
+  </div>
+
+  <!-- Ticker editorial -->
+  <div class="ticker-top-xl" aria-hidden="true">
+    <div class="ticker-top-xl__track" id="tickerText">
+      <span>fca · @luv2dzy · psn: luv2dzy · discord: .dzyy · i hate being bipolar, its awesome ·</span>
+      <span>fca · @luv2dzy · psn: luv2dzy · discord: .dzyy · i hate being bipolar, its awesome ·</span>
+      <span>fca · @luv2dzy · psn: luv2dzy · discord: .dzyy · i hate being bipolar, its awesome ·</span>
+    </div>
+  </div>
+<main class="wrap">
+    <section class="cover">
+
+      <!-- COLUMNA IZQUIERDA -->
+      <header class="masthead">
+
+        <div class="avatar">
+          <img src="fotodzy.jpg" alt="Foto de perfil de Diego Mendoza">
+        </div>
+
+        <div class="titleblock">
+          <p class="kicker"></p>
+          <h1 class="title">
+            DIEGO<br>
+            MENDOZA
+          </h1>
+          <p class="subtitle"></p>
+        </div>
+
+
+      </header>
+
+      <!-- COLUMNA DERECHA -->
+      <aside class="panel">
+
+        <div class="panel__top">
+          <div class="mono">
+            <span class="dot"></span>
+            <span>LINKS</span>
+          </div>
+          <div class="issue">
+            <span class="issue__label">AÑO</span>
+            <span class="issue__num" id="year"></span>
+          </div>
+        </div>
+
+        <nav class="links">
+          <a class="link" href="https://www.instagram.com/luv2dzy" target="_blank" rel="noopener noreferrer">
+            <span class="link__left">
+              <span class="link__idx">01</span>
+              <span class="link__name">Instagram</span>
+            </span>
+            <span class="link__right">↗</span>
+          </a>
+
+          <a class="link" href="https://www.tiktok.com/@luv2dzy" target="_blank" rel="noopener noreferrer">
+            <span class="link__left">
+              <span class="link__idx">02</span>
+              <span class="link__name">TikTok</span>
+            </span>
+            <span class="link__right">↗</span>
+          </a>
+
+          <a class="link featured" href="https://music.apple.com/library/playlist/p.gek1LgeCLaPk9qY" target="_blank" rel="noopener noreferrer">
+            <span class="link__left">
+              <span class="link__idx">03</span>
+              <span class="link__name">Apple Music Playlist</span>
+            </span>
+            <span class="link__right">↗</span>
+          </a>
+
+          <a class="link" href="https://www.twitch.tv/dzyy" target="_blank" rel="noopener noreferrer">
+            <span class="link__left">
+              <span class="link__idx">04</span>
+              <span class="link__name">Twitch</span>
+            </span>
+            <span class="link__right">↗</span>
+          </a>
+
+
+        <div class="panel__bottom">
+          <div class="meta">
+            <p class="meta__line">© <span id="yearFooter"></span> — Diego Mendoza</p>
+            <p class="meta__line muted"></p>
+          </div>
+
+          <button class="eegg" id="eeggBtn" type="button" aria-label="easter egg">
+            ;)
+            
+          </button>
+        </div>
+
+      </aside>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <!-- overlay de transición tipo TV -->
+<div class="tv-wipe" id="tvWipe" aria-hidden="true"></div>
+
+</body>
+</html>

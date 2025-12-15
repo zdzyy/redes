@@ -1,0 +1,508 @@
+:root{
+  --bg: #0b0b0c;
+  --paper: rgba(255,255,255,.06);
+  --ink: #f4f4f2;
+  --muted: rgba(244,244,242,.72);
+  --line: rgba(244,244,242,.14);
+  --accent: #ff4d8d;
+  --accent-links: #ff4d8d; /* rosa editorial */
+
+
+  --radius: 22px;
+  --shadow: 0 30px 120px rgba(0,0,0,.55);
+}
+
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+a{ color: inherit; text-decoration: none; }
+
+/* ---------- Background ---------- */
+.bg{
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.noise{
+  position: absolute;
+  inset: -40%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+  opacity: .14;
+  pointer-events: none;
+  animation: noiseMove 10s steps(10) infinite;
+}
+
+@keyframes noiseMove{
+  0%{ transform: translate(0,0); }
+  25%{ transform: translate(-3%, 2%); }
+  50%{ transform: translate(4%, -2%); }
+  75%{ transform: translate(-2%, -4%); }
+  100%{ transform: translate(0,0); }
+}
+
+.vignette{
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 35%, rgba(0,0,0,0) 35%, rgba(0,0,0,.72) 100%);
+  pointer-events: none;
+}
+
+.glow{
+  position: absolute;
+  width: 560px;
+  height: 560px;
+  border-radius: 999px;
+  filter: blur(55px);
+  opacity: .20;
+  mix-blend-mode: screen;
+  transform: translate3d(0,0,0);
+  will-change: transform;
+}
+
+/* 3 glows con drift constante */
+.g1{
+  left: -220px;
+  top: -180px;
+  background: radial-gradient(circle at 30% 30%, rgba(139,255,0,.85), rgba(139,255,0,0) 60%);
+  animation: drift1 11s ease-in-out infinite;
+}
+.g2{
+  right: -260px;
+  bottom: -220px;
+  background: radial-gradient(circle at 30% 30%, rgba(58,134,255,.7), rgba(58,134,255,0) 60%);
+  opacity: .14;
+  animation: drift2 13s ease-in-out infinite;
+}
+.g3{
+  left: 18%;
+  bottom: -280px;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), rgba(255,255,255,0) 60%);
+  opacity: .10;
+  animation: drift3 15s ease-in-out infinite;
+}
+
+@keyframes drift1{
+  0%,100%{ transform: translate3d(0,0,0) scale(1); }
+  50%{ transform: translate3d(40px, 22px, 0) scale(1.08); }
+}
+@keyframes drift2{
+  0%,100%{ transform: translate3d(0,0,0) scale(1); }
+  50%{ transform: translate3d(-34px, -28px, 0) scale(1.06); }
+}
+@keyframes drift3{
+  0%,100%{ transform: translate3d(0,0,0) scale(1); }
+  50%{ transform: translate3d(26px, -18px, 0) scale(1.04); }
+}
+
+/* ---------- Ticker ---------- */
+.ticker{
+  position: fixed;
+  top: 14px;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.ticker__track{
+  display: flex;
+  gap: 40px;
+  white-space: nowrap;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 11px;
+  opacity: .55;
+  animation: ticker 20s linear infinite;
+}
+
+@keyframes ticker{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-33.33%); }
+}
+
+/* ---------- Layout ---------- */
+.wrap{
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 72px 18px 42px;
+}
+
+.cover{
+  width: min(980px, 95vw);
+  display: grid;
+  grid-template-columns: 1.2fr .9fr;
+  gap: 18px;
+  align-items: stretch;
+}
+
+/* Masthead centrado (sin blurb) */
+.masthead{
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.02);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+  display: grid;
+  align-content: center;   /* <-- aquí se centra bonito */
+  gap: 16px;
+  overflow: hidden;
+}
+
+/* Avatar */
+.avatar{
+  width: 118px;
+  height: 118px;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(244,244,242,.22);
+  background: rgba(255,255,255,.04);
+  box-shadow: 0 10px 40px rgba(0,0,0,.4);
+}
+
+.avatar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(10%) contrast(1.05);
+}
+
+/* Title */
+.kicker{
+  margin: 0 0 10px 0;
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: 800;
+  color: rgba(244,244,242,.7);
+}
+
+.title{
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 2px;
+  line-height: .9;
+  font-size: clamp(44px, 6.2vw, 78px);
+}
+
+.subtitle{
+  margin: 12px 0 0 0;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: rgba(244,244,242,.74);
+  font-weight: 600;
+}
+
+.rule{
+  height: 1px;
+  background: linear-gradient(90deg, rgba(244,244,242,0), rgba(244,244,242,.22), rgba(244,244,242,0));
+}
+
+/* Mini block editorial */
+.mini{
+  display: grid;
+  gap: 6px;
+  max-width: 56ch;
+}
+.mini__label{
+  font-size: 10px;
+  letter-spacing: 3px;
+  font-weight: 900;
+  opacity: .6;
+}
+.mini__value{
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: rgba(244,244,242,.72);
+}
+
+/* Panel */
+.panel{
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  backdrop-filter: blur(14px);
+}
+
+.panel__top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mono{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(244,244,242,.18);
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: rgba(0,0,0,.18);
+}
+
+.dot{
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 18px rgba(139,255,0,.45);
+}
+
+.mono span{
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  opacity: .9;
+}
+
+.issue{
+  display: grid;
+  text-align: right;
+  gap: 2px;
+}
+.issue__label{
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  opacity: .6;
+}
+.issue__num{
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: 900;
+}
+
+.links{
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.link{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid rgba(244,244,242,.18);
+  background: rgba(0,0,0,.20);
+  border-radius: 18px;
+  padding: 14px 14px;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease;
+  will-change: transform;
+}
+
+.link__left{
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.link__idx{
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: 12px;
+  opacity: .6;
+}
+
+.link__name{
+  font-weight: 800;
+  letter-spacing: 2px;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.link__right{
+  font-size: 16px;
+  opacity: .8;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+.link:hover{
+  transform: translateY(-2px);
+  border-color: rgba(255,77,141,.55);
+  background: rgba(255,77,141,.06);
+}
+
+.link:hover .link__right{
+  transform: translate(2px, -2px);
+  opacity: 1;
+}
+
+.link.featured{
+  border-color: rgba(255,77,141,.55);
+  background: rgba(255,77,141,.06);
+}
+
+.panel__bottom{
+  margin-top: 16px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.meta{
+  display: grid;
+  gap: 4px;
+}
+.meta__line{
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: rgba(244,244,242,.72);
+}
+.meta__line.muted{
+  color: rgba(244,244,242,.5);
+}
+
+.sig{
+  border: 1px solid rgba(244,244,242,.18);
+  background: rgba(0,0,0,.18);
+  border-radius: 14px;
+  padding: 10px 12px;
+  text-align: right;
+}
+.sig__label{
+  display: block;
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  opacity: .6;
+}
+.sig__value{
+  display: block;
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: 900;
+}
+
+@media (max-width: 860px){
+  .cover{ grid-template-columns: 1fr; }
+  .panel{ order: 2; }
+}
+
+/* ---------- TICKER XL (FONDO EDITORIAL) ---------- */
+.ticker-top-xl{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 32vh;                /* ocupa visualmente, no empuja layout */
+  z-index: -1;                 /* detrás del contenido */
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-top-xl__track{
+  display: flex;
+  gap: 6vw;
+  white-space: nowrap;
+  font-weight: 900;
+  font-size: clamp(80px, 18vw, 280px);
+  letter-spacing: -0.06em;
+  line-height: 1;
+  opacity: .085;
+  animation: tickerTopXL 75s linear infinite; /* lento y editorial */
+  will-change: transform;
+}
+.ticker-top-xl__track span{
+  text-transform: uppercase;
+}
+
+@keyframes tickerTopXL{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-50%); }
+}
+
+.ticker-chunk{
+  display: inline-block;
+  padding-right: 0.35em;
+  will-change: font-family, transform, opacity;
+  transition: font-family 0.5s ease, transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* Pequeñas variaciones para que no se vea plano */
+.ticker-chunk.alt1{ transform: translateY(-0.02em); opacity: .95; }
+.ticker-chunk.alt2{ transform: translateY(0.03em);  opacity: .9;  }
+.ticker-chunk.alt3{ transform: translateY(-0.04em); opacity: 1;   }
+
+.ticker-top-xl__track{
+  letter-spacing: -0.03em;
+}
+
+.ticker-top-xl__track{
+  letter-spacing: -0.03em;
+}
+
+.ticker-top-xl__track span{
+  text-transform: lowercase !important;
+}
+
+/* easter egg button */
+.eegg{
+  border: 1px solid rgba(244,244,242,.18);
+  background: rgba(0,0,0,.18);
+  color: rgba(244,244,242,.9);
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease, opacity .18s ease;
+  opacity: .85;
+  user-select: none;
+}
+
+.eegg:hover{
+  transform: translateY(-2px);
+  border-color: rgba(139,255,0,.45);
+  background: rgba(139,255,0,.06);
+  opacity: 1;
+}
+
+.eegg:active{
+  transform: translateY(0px) scale(.99);
+}
+
+/* ---------- TV NOISE WIPE (TRANSICIÓN) ---------- */
+.tv-wipe{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(1.02);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.08), rgba(0,0,0,.92) 65%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+  background-size: cover, 220px 220px;
+  mix-blend-mode: screen;
+}
+
+.tv-wipe.on{
+  opacity: 1;
+  animation: tvWipe 650ms steps(10) forwards;
+}
+
+@keyframes tvWipe{
+  0%   { opacity: 0; filter: contrast(1) brightness(1); }
+  15%  { opacity: 1; filter: contrast(1.8) brightness(1.25); }
+  55%  { opacity: 1; filter: contrast(2.2) brightness(1.1); }
+  100% { opacity: 0; filter: contrast(1) brightness(1); }
+}
